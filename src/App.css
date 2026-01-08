@@ -701,14 +701,14 @@ html, body {
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 5px;
-  color: #8b3a3a;
+  color: #c73030;
   margin-bottom: 1.25rem;
   text-transform: uppercase;
 }
 
 .hero-tagline-underline {
   text-decoration: underline;
-  text-decoration-color: #8b3a3a;
+  text-decoration-color: #c73030;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
 }
@@ -1087,7 +1087,7 @@ html, body {
 
   /* Mobile: center car properly, prevent left cut-off */
   .car-scene-container {
-    transform: scale(0.95) translateX(0%) translateY(-10%);
+    transform: scale(0.95) translateX(0%) translateY(-15%);
     width: 100%;
     max-width: 100vw;
     overflow: visible;
