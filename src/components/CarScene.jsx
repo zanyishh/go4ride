@@ -15,7 +15,6 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
   const { scene } = useGLTF('/scene-compressed.glb')
   const carRef = useRef()
   const initialized = useRef(false)
-  const { invalidate } = useThree()
 
   useEffect(() => {
     if (scene && !initialized.current) {
@@ -137,13 +136,13 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
                 name.includes('hood') || name.includes('trunk') ||
                 name.includes('fender') || name.includes('bumper') ||
                 name.includes('roof') || name.includes('pillar')) {
-              mat.color = new THREE.Color('#1a1a1a')
-              mat.metalness = 0.85
-              mat.roughness = 0.12
-              mat.envMapIntensity = 3.0
+              mat.color = new THREE.Color('#0d0d0d')
+              mat.metalness = 0.9
+              mat.roughness = 0.08
+              mat.envMapIntensity = 2.0
               if (mat.clearcoat !== undefined) {
-                mat.clearcoat = 1.0
-                mat.clearcoatRoughness = 0.05
+                mat.clearcoat = 0.8
+                mat.clearcoatRoughness = 0.1
               }
             }
             // Windows - tinted glass with subtle reflections
@@ -196,19 +195,19 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
             else if (matName.includes('grille') || matName.includes('grill') ||
                      matName.includes('trim') || name.includes('grille') ||
                      name.includes('badge') || name.includes('emblem')) {
-              mat.color = new THREE.Color('#252525')
-              mat.metalness = 0.8
-              mat.roughness = 0.2
-              mat.envMapIntensity = 2.5
+              mat.color = new THREE.Color('#0a0a0a')
+              mat.metalness = 0.85
+              mat.roughness = 0.15
+              mat.envMapIntensity = 2.0
             }
             // Plastic parts - matte black trim
             else if (matName.includes('plastic') || matName.includes('rubber') ||
                      name.includes('wiper') || name.includes('seal') ||
                      name.includes('molding')) {
-              mat.color = new THREE.Color('#151515')
-              mat.metalness = 0.1
-              mat.roughness = 0.5
-              mat.envMapIntensity = 1.0
+              mat.color = new THREE.Color('#080808')
+              mat.metalness = 0.05
+              mat.roughness = 0.6
+              mat.envMapIntensity = 0.5
             }
           }
         }
@@ -228,9 +227,8 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
       })
       
       onLoaded()
-      invalidate()
     }
-  }, [scene, onLoaded, invalidate, isMobile])
+  }, [scene, onLoaded, isMobile])
 
   // Scroll-driven rotation: car rotates as user scrolls (cinematic reveal)
   useFrame(() => {
@@ -242,7 +240,6 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
       const startRotation = -0.4
       const endRotation = -2.5
       carRef.current.rotation.y = THREE.MathUtils.lerp(startRotation, endRotation, eased)
-      invalidate()
     }
   })
 
@@ -263,53 +260,35 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
 function SceneLights() {
   return (
     <>
-      {/* Soft ambient for base visibility */}
-      <ambientLight intensity={0.5} color="#f8f8ff" />
+      {/* Ambient for base visibility */}
+      <ambientLight intensity={0.6} color="#ffffff" />
       
-      {/* Key light - main illumination from front-right */}
+      {/* Key light - main illumination */}
       <directionalLight
-        position={[8, 12, 10]}
-        intensity={2.5}
+        position={[5, 10, 8]}
+        intensity={1.8}
         color="#ffffff"
       />
       
-      {/* Fill light - soften shadows from left */}
+      {/* Fill light - soften shadows */}
       <directionalLight
-        position={[-6, 8, -4]}
-        intensity={1.5}
-        color="#e8f0ff"
-      />
-      
-      {/* Rim light - edge definition from back */}
-      <directionalLight
-        position={[-8, 5, -8]}
-        intensity={2.0}
+        position={[-5, 6, -3]}
+        intensity={1.2}
         color="#ffffff"
       />
       
-      {/* Top light - subtle highlights on roof */}
+      {/* Rim light - edge definition */}
       <directionalLight
-        position={[0, 15, 0]}
+        position={[-6, 4, -6]}
         intensity={1.5}
         color="#ffffff"
       />
       
-      {/* Front accent - grille and bumper detail */}
-      <spotLight
-        position={[0, 5, 10]}
-        angle={0.6}
-        penumbra={0.5}
-        intensity={2.0}
+      {/* Top light - roof highlights */}
+      <directionalLight
+        position={[0, 12, 0]}
+        intensity={1.0}
         color="#ffffff"
-      />
-      
-      {/* Side accent - wheel and door highlights */}
-      <spotLight
-        position={[10, 4, 2]}
-        angle={0.5}
-        penumbra={0.6}
-        intensity={1.5}
-        color="#fff8f0"
       />
     </>
   )
@@ -319,7 +298,7 @@ function SceneLights() {
    SCROLL-ANIMATED CAMERA (CINEMATIC ORBIT)
    ============================ */
 function ScrollCamera({ scrollProgress, isMobile }) {
-  const { camera, invalidate } = useThree()
+  const { camera } = useThree()
 
   useFrame(() => {
     const progress = scrollProgress.current || 0
@@ -366,7 +345,6 @@ function ScrollCamera({ scrollProgress, isMobile }) {
     }
     
     camera.updateProjectionMatrix()
-    invalidate()
   })
 
   return null
@@ -404,16 +382,15 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
       <Canvas
         gl={{
           powerPreference: 'high-performance',
-          antialias: !isMobile,
+          antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.8,
+          toneMappingExposure: 1.6,
           stencil: false,
           depth: true,
           alpha: true,
         }}
-        dpr={isMobile ? 1 : 1.5}
-        performance={{ min: isMobile ? 0.5 : 0.3 }}
-        frameloop="demand"
+        dpr={isMobile ? 1.5 : 2}
+        frameloop="always"
         style={{ background: 'transparent' }}
       >
         <ScrollCamera scrollProgress={scrollRef} isMobile={isMobile} />
@@ -423,14 +400,14 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
           <CarModel onLoaded={() => setIsLoaded(true)} scrollProgress={scrollRef} isMobile={isMobile} />
           <ContactShadows
             position={[0, -0.5, 0]}
-            opacity={0.35}
-            scale={12}
-            blur={2.5}
+            opacity={0.4}
+            scale={10}
+            blur={2}
             far={4}
             color="#000000"
-            resolution={256}
+            resolution={512}
           />
-          <Environment preset="city" background={false} />
+          <Environment preset="studio" background={false} />
         </Suspense>
       </Canvas>
 
