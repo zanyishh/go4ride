@@ -400,33 +400,33 @@
   }
   
   .kiger-image {
-    transform: scale(0.95);
+    transform: scale(1.15);
+    margin-top: -1.5rem;
   }
-  
+
   .kiger-showcase .model-name {
     font-size: 1.9rem;
     letter-spacing: 3px;
     margin-top: 1rem;
   }
-  
+
   .kiger-showcase .model-variant {
     font-size: 0.75rem;
     letter-spacing: 4px;
     margin-top: 0.3rem;
   }
-  
+
   .kiger-showcase .price-amount {
     font-size: 1.4rem;
   }
-  
+
   .kiger-showcase .price-btn {
     padding: 0.7rem 1.5rem;
     margin-top: 0.5rem;
   }
-  
+
   .kiger-showcase .price-column {
-    margin-top: 1rem;
-  }
+    margin-top: -0.5rem;
   
   .kiger-showcase {
     min-height: 90vh;
