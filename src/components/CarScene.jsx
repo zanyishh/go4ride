@@ -27,7 +27,8 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
           const name = (child.name || '').toLowerCase()
           const matName = (child.material?.name || '').toLowerCase()
           
-          // AGGRESSIVE REMOVAL - Interior parts (both desktop and mobile)
+          // ULTRA AGGRESSIVE REMOVAL - Everything not visible from outside
+          // Interior - ALL interior parts
           if (name.includes('seat') || name.includes('interior') || 
               name.includes('dashboard') || name.includes('steering') ||
               name.includes('floor') || name.includes('carpet') ||
@@ -37,14 +38,22 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
               name.includes('headrest') || name.includes('armrest') ||
               name.includes('glovebox') || name.includes('sunvisor') ||
               name.includes('speaker') || name.includes('vent') ||
+              name.includes('gauge') || name.includes('dial') ||
+              name.includes('button') || name.includes('switch') ||
+              name.includes('knob') || name.includes('lever') ||
+              name.includes('shifter') || name.includes('gear') ||
+              name.includes('cup') || name.includes('holder') ||
+              name.includes('pocket') || name.includes('storage') ||
+              name.includes('mat') || name.includes('liner') ||
               matName.includes('interior') || matName.includes('seat') ||
               matName.includes('fabric') || matName.includes('leather') ||
-              matName.includes('cloth') || matName.includes('carpet')) {
+              matName.includes('cloth') || matName.includes('carpet') ||
+              matName.includes('dashboard') || matName.includes('vinyl')) {
             toRemove.push(child)
             return
           }
           
-          // AGGRESSIVE REMOVAL - Bottom/undercarriage (both desktop and mobile)
+          // Undercarriage - ALL mechanical parts
           if (name.includes('under') || name.includes('chassis') ||
               name.includes('exhaust') || name.includes('suspension') ||
               name.includes('axle') || name.includes('brake') ||
@@ -57,51 +66,57 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
               name.includes('shock') || name.includes('spring') ||
               name.includes('sway') || name.includes('bushing') ||
               name.includes('caliper') || name.includes('rotor') ||
-              name.includes('disc') || name.includes('pad')) {
+              name.includes('disc') || name.includes('pad') ||
+              name.includes('motor') || name.includes('pump') ||
+              name.includes('compressor') || name.includes('alternator') ||
+              name.includes('starter') || name.includes('flywheel') ||
+              name.includes('clutch') || name.includes('oil') ||
+              name.includes('filter') || name.includes('coolant') ||
+              name.includes('radiator') || name.includes('intercooler') ||
+              name.includes('turbo') || name.includes('manifold') ||
+              name.includes('intake') || name.includes('air_box') ||
+              name.includes('throttle') || name.includes('injector') ||
+              name.includes('spark') || name.includes('coil') ||
+              name.includes('distributor') || name.includes('ecu') ||
+              name.includes('abs') || name.includes('esp') ||
+              name.includes('steering_rack') || name.includes('power_steering')) {
             toRemove.push(child)
             return
           }
           
-          // MOBILE ONLY: Ultra-aggressive removal - keep ONLY visible exterior
-          if (isMobile) {
-            // Remove any geometry that's typically internal or not visible from exterior
-            if (name.includes('inner') || name.includes('inside') ||
-                name.includes('cavity') || name.includes('behind') ||
-                name.includes('back_') || name.includes('_back') ||
-                name.includes('hidden') || name.includes('internal') ||
-                name.includes('frame') || name.includes('structure') ||
-                name.includes('support') || name.includes('bracket') ||
-                name.includes('mount') || name.includes('hinge') ||
-                name.includes('latch') || name.includes('lock') ||
-                name.includes('wire') || name.includes('cable') ||
-                name.includes('harness') || name.includes('connector') ||
-                name.includes('bolt') || name.includes('screw') ||
-                name.includes('nut') || name.includes('washer') ||
-                name.includes('clip') || name.includes('fastener') ||
-                name.includes('panel_inner') || name.includes('liner') ||
-                name.includes('insulation') || name.includes('foam') ||
-                name.includes('rubber_') || name.includes('gasket') ||
-                name.includes('weather') || name.includes('drain') ||
-                name.includes('duct') || name.includes('tube') ||
-                name.includes('hose') || name.includes('coolant') ||
-                name.includes('radiator') || name.includes('fan') ||
-                name.includes('battery') || name.includes('fuse') ||
-                name.includes('relay') || name.includes('sensor') ||
-                name.includes('motor') || name.includes('pump') ||
-                name.includes('reservoir') || name.includes('fluid') ||
-                matName.includes('inner') || matName.includes('hidden') ||
-                matName.includes('black_plastic') || matName.includes('underbody')) {
+          // Structural/hidden parts
+          if (name.includes('inner') || name.includes('inside') ||
+              name.includes('cavity') || name.includes('behind') ||
+              name.includes('hidden') || name.includes('internal') ||
+              name.includes('frame') || name.includes('structure') ||
+              name.includes('support') || name.includes('bracket') ||
+              name.includes('mount') || name.includes('hinge') ||
+              name.includes('latch') || name.includes('lock') ||
+              name.includes('wire') || name.includes('cable') ||
+              name.includes('harness') || name.includes('connector') ||
+              name.includes('bolt') || name.includes('screw') ||
+              name.includes('nut') || name.includes('washer') ||
+              name.includes('clip') || name.includes('fastener') ||
+              name.includes('rivet') || name.includes('weld') ||
+              name.includes('panel_inner') || name.includes('insulation') ||
+              name.includes('foam') || name.includes('gasket') ||
+              name.includes('weather') || name.includes('drain') ||
+              name.includes('duct') || name.includes('tube') ||
+              name.includes('hose') || name.includes('battery') ||
+              name.includes('fuse') || name.includes('relay') ||
+              name.includes('sensor') || name.includes('reservoir') ||
+              matName.includes('inner') || matName.includes('hidden') ||
+              matName.includes('underbody') || matName.includes('structural')) {
+            toRemove.push(child)
+            return
+          }
+          
+          // Remove small geometry (not visible at distance)
+          if (child.geometry) {
+            child.geometry.computeBoundingSphere()
+            if (child.geometry.boundingSphere && child.geometry.boundingSphere.radius < 0.03) {
               toRemove.push(child)
               return
-            }
-            
-            // Skip very small geometry (likely details not visible on mobile)
-            if (child.geometry && child.geometry.boundingSphere) {
-              child.geometry.computeBoundingSphere()
-              if (child.geometry.boundingSphere.radius < 0.02) {
-                toRemove.push(child)
-                return
-              }
             }
           }
           
@@ -109,90 +124,94 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
           child.castShadow = false
           child.receiveShadow = false
           
-          // ENHANCE EXTERIOR - Realistic PBR materials
+          // PREMIUM EXTERIOR MATERIALS - Ultra high quality outer body
           if (child.material) {
             child.material = child.material.clone()
             const mat = child.material
             mat.needsUpdate = true
             
-            // Mobile: Enhanced material settings for premium, sharp exterior
-            const envIntensityBoost = isMobile ? 1.0 : 0
-            
-            // Body panels - realistic automotive paint with clearcoat effect
+            // BODY PANELS - Ultra-realistic showroom finish (bonnet, doors, front)
             if (matName.includes('body') || matName.includes('paint') ||
                 matName.includes('car') || matName.includes('metal') ||
                 name.includes('body') || name.includes('door') ||
-                name.includes('hood') || name.includes('trunk') ||
-                name.includes('fender') || name.includes('bumper') ||
-                name.includes('roof') || name.includes('pillar')) {
-              mat.color = new THREE.Color('#1a1a1a')
-              mat.metalness = isMobile ? 0.55 : 0.4
-              mat.roughness = isMobile ? 0.25 : 0.35
-              mat.envMapIntensity = isMobile ? 4.5 : 3.5
-              mat.reflectivity = 1.0
+                name.includes('hood') || name.includes('bonnet') ||
+                name.includes('trunk') || name.includes('fender') || 
+                name.includes('bumper') || name.includes('front') ||
+                name.includes('roof') || name.includes('pillar') ||
+                name.includes('quarter') || name.includes('panel')) {
+              mat.color = new THREE.Color('#020202')
+              mat.metalness = 0.95
+              mat.roughness = 0.03
+              mat.envMapIntensity = 15.0
+              mat.clearcoat = 1.0
+              mat.clearcoatRoughness = 0.01
             }
-            // Windows - realistic automotive glass
+            // WINDOWS - Ultra clear reflective glass
             else if (matName.includes('glass') || matName.includes('window') ||
                      name.includes('glass') || name.includes('window') ||
                      name.includes('windshield')) {
-              mat.color = new THREE.Color('#1a2530')
-              mat.metalness = 0.0
+              mat.color = new THREE.Color('#0a1520')
+              mat.metalness = 0.1
               mat.roughness = 0.0
               mat.transparent = true
-              mat.opacity = isMobile ? 0.3 : 0.4
-              mat.envMapIntensity = isMobile ? 5.0 : 4.0
-              mat.side = THREE.DoubleSide
+              mat.opacity = 0.25
+              mat.envMapIntensity = 8.0
             }
-            // Wheels - rubber tires
+            // TIRES - Ultra-realistic premium rubber
             else if (matName.includes('tire') || matName.includes('tyre') ||
                      name.includes('tire') || name.includes('tyre')) {
-              mat.color = new THREE.Color('#0f0f0f')
-              mat.metalness = 0.0
-              mat.roughness = isMobile ? 0.85 : 0.9
-              mat.envMapIntensity = isMobile ? 0.8 : 0.5
+              mat.color = new THREE.Color('#0a0a0a')
+              mat.metalness = 0.02
+              mat.roughness = 0.85
+              mat.envMapIntensity = 0.8
+              mat.normalScale = new THREE.Vector2(1.5, 1.5)
             }
-            // Rims - polished alloy
+            // RIMS - Hyper-realistic diamond-cut polished alloy
             else if (matName.includes('wheel') || matName.includes('rim') ||
-                     name.includes('wheel') || name.includes('rim') ||
-                     name.includes('alloy')) {
-              mat.color = new THREE.Color('#d0d0d0')
+                     matName.includes('alloy') || name.includes('wheel') || 
+                     name.includes('rim') || name.includes('spoke')) {
+              mat.color = new THREE.Color('#f8f8f8')
               mat.metalness = 1.0
-              mat.roughness = isMobile ? 0.05 : 0.1
-              mat.envMapIntensity = isMobile ? 5.0 : 4.0
+              mat.roughness = 0.0
+              mat.envMapIntensity = 18.0
             }
-            // Headlights/taillights - polished reflector
+            // HEADLIGHTS & TAILLIGHTS - Photorealistic crystal optics
             else if (matName.includes('light') || matName.includes('lamp') ||
                      name.includes('headlight') || name.includes('taillight') ||
-                     name.includes('fog')) {
-              mat.metalness = isMobile ? 0.95 : 0.9
-              mat.roughness = isMobile ? 0.02 : 0.05
-              mat.envMapIntensity = isMobile ? 6.0 : 5.0
-            }
-            // Chrome parts - mirror finish
-            else if (matName.includes('chrome') || name.includes('chrome') ||
-                     name.includes('mirror') || name.includes('handle')) {
-              mat.color = new THREE.Color('#f0f0f0')
+                     name.includes('fog') || name.includes('led') ||
+                     name.includes('drl') || name.includes('indicator')) {
               mat.metalness = 1.0
-              mat.roughness = isMobile ? 0.005 : 0.02
-              mat.envMapIntensity = isMobile ? 6.0 : 5.0
+              mat.roughness = 0.0
+              mat.envMapIntensity = 20.0
+              mat.transparent = true
+              mat.opacity = 0.95
             }
-            // Grille/trim - dark chrome
-            else if (matName.includes('grille') || matName.includes('grill') ||
-                     matName.includes('trim') || name.includes('grille') ||
-                     name.includes('badge') || name.includes('emblem')) {
-              mat.color = new THREE.Color('#252525')
-              mat.metalness = isMobile ? 0.95 : 0.85
-              mat.roughness = isMobile ? 0.08 : 0.15
-              mat.envMapIntensity = isMobile ? 5.0 : 4.0
+            // CHROME & TRIM - Flawless mirror-polished finish
+            else if (matName.includes('chrome') || name.includes('chrome') ||
+                     name.includes('mirror') || name.includes('handle') ||
+                     name.includes('trim') || name.includes('molding') ||
+                     name.includes('badge') || name.includes('emblem') ||
+                     name.includes('grille') || name.includes('grill')) {
+              mat.color = new THREE.Color('#ffffff')
+              mat.metalness = 1.0
+              mat.roughness = 0.0
+              mat.envMapIntensity = 25.0
             }
-            // Plastic parts - matte black
+            // PLASTIC PARTS - Premium matte black
             else if (matName.includes('plastic') || matName.includes('rubber') ||
                      name.includes('wiper') || name.includes('seal') ||
-                     name.includes('molding')) {
-              mat.color = new THREE.Color('#151515')
-              mat.metalness = isMobile ? 0.05 : 0.0
-              mat.roughness = isMobile ? 0.6 : 0.7
-              mat.envMapIntensity = isMobile ? 1.5 : 1.0
+                     name.includes('antenna') || name.includes('spoiler')) {
+              mat.color = new THREE.Color('#0a0a0a')
+              mat.metalness = 0.0
+              mat.roughness = 0.7
+              mat.envMapIntensity = 1.0
+            }
+            // Everything else exterior - dark premium finish
+            else {
+              mat.color = new THREE.Color('#0f0f0f')
+              mat.metalness = 0.3
+              mat.roughness = 0.4
+              mat.envMapIntensity = 3.0
             }
           }
         }
@@ -235,56 +254,65 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
       ref={carRef}
       object={scene}
       scale={0.95}
-      position={[0, -0.5, 0]}
+      position={[0.4, -0.5, 0]}
       rotation={[0, -0.4, 0]}
     />
   )
 }
 
 /* ============================
-   LIGHTS
+   LIGHTS - Premium Studio Lighting
    ============================ */
 function SceneLights() {
   return (
     <>
-      {/* Soft ambient fill */}
-      <ambientLight intensity={0.3} color="#e8f0ff" />
+      {/* Soft ambient fill - subtle blue tint for showroom feel */}
+      <ambientLight intensity={0.4} color="#e0e8ff" />
       
-      {/* Key light - main illumination */}
+      {/* Key light - main illumination from top-right */}
       <directionalLight
-        position={[8, 12, 8]}
+        position={[10, 15, 8]}
+        intensity={4.0}
+        color="#fffaf0"
+      />
+      
+      {/* Fill light - soften shadows from left */}
+      <directionalLight
+        position={[-8, 10, -5]}
+        intensity={2.0}
+        color="#f0f5ff"
+      />
+      
+      {/* Rim light - strong edge definition for body lines */}
+      <directionalLight
+        position={[-10, 6, 10]}
         intensity={3.0}
-        color="#fff8f0"
+        color="#ffffff"
       />
       
-      {/* Fill light - soften shadows */}
+      {/* Top light - roof and hood reflections */}
       <directionalLight
-        position={[-6, 8, -4]}
-        intensity={1.5}
-        color="#f0f4ff"
-      />
-      
-      {/* Rim light - edge definition */}
-      <directionalLight
-        position={[-8, 5, 8]}
+        position={[0, 20, 0]}
         intensity={2.0}
         color="#ffffff"
       />
       
-      {/* Top light - roof highlights */}
-      <directionalLight
-        position={[0, 15, 0]}
-        intensity={1.0}
+      {/* Front accent - grille, bumper and headlights */}
+      <spotLight
+        position={[0, 4, 12]}
+        angle={0.5}
+        penumbra={0.6}
+        intensity={2.5}
         color="#ffffff"
       />
       
-      {/* Front accent - grille and bumper */}
+      {/* Side accent - wheel and door highlights */}
       <spotLight
-        position={[0, 3, 10]}
-        angle={0.4}
+        position={[12, 3, 0]}
+        angle={0.6}
         penumbra={0.5}
         intensity={1.5}
-        color="#ffffff"
+        color="#fffef8"
       />
     </>
   )

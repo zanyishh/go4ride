@@ -382,7 +382,7 @@
   
   .ertiga-image {
     transform: scale(1.15);
-    margin-top: -1.5rem;
+    margin-top: -4rem;
   }
 
   .ertiga-showcase .model-name {
@@ -407,7 +407,7 @@
   }
 
   .ertiga-showcase .price-column {
-    margin-top: -0.5rem;
+    margin-top: -3rem;
   }
 
   .ertiga-showcase {

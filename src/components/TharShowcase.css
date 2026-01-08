@@ -401,7 +401,7 @@
   
   .thar-image {
     transform: scale(1.12);
-    margin-top: -1.5rem;
+    margin-top: -4rem;
     filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.3)) contrast(1.05) brightness(1.02);
   }
 
@@ -427,7 +427,7 @@
   }
 
   .thar-showcase .price-column {
-    margin-top: -0.5rem;
+    margin-top: -3rem;
   }
 
   .thar-showcase {

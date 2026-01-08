@@ -401,7 +401,7 @@
   
   .triber-image {
     transform: scale(1.15);
-    margin-top: -1.5rem;
+    margin-top: -4rem;
   }
 
   .triber-showcase .model-name {
@@ -426,7 +426,7 @@
   }
 
   .triber-showcase .price-column {
-    margin-top: -0.5rem;
+    margin-top: -3rem;
   }
 
   .triber-showcase {
