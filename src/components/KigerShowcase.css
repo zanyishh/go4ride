@@ -1,0 +1,492 @@
+/* ===== Kiger Showcase Section (Light Theme) ===== */
+.kiger-showcase {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f8f8 0%, #e8e8e8 50%, #dcdcdc 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  contain: layout style paint;
+  content-visibility: auto;
+}
+
+/* Oversized Background Text - Repeated */
+.kiger-showcase .bg-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.kiger-showcase .bg-text::before,
+.kiger-showcase .bg-text::after {
+  content: 'KIGER  KIGER  KIGER  KIGER';
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(8rem, 15vw, 18rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(139, 58, 58, 0.12);
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1;
+}
+
+.kiger-showcase .bg-text::before {
+  transform: translateY(-20%);
+}
+
+.kiger-showcase .bg-text::after {
+  transform: translateY(20%);
+}
+
+/* Main Container */
+.kiger-showcase .showcase-container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* ===== Car Image ===== */
+.kiger-showcase .car-showcase {
+  position: relative;
+  width: 65%;
+  max-width: 1000px;
+  z-index: 10;
+}
+
+.kiger-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.25));
+  transform: perspective(1000px) rotateY(-5deg) translateZ(0);
+  -webkit-transform: perspective(1000px) rotateY(-5deg) translateZ(0);
+  transition: transform 0.5s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.kiger-showcase .car-shadow {
+  position: absolute;
+  bottom: -20px;
+  left: 10%;
+  width: 80%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+}
+
+/* ===== Feature Callouts - Right Side Only ===== */
+.kiger-showcase .callouts-right {
+  position: absolute;
+  right: -25%;
+  top: 45%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  z-index: 15;
+}
+
+.kiger-showcase .callout {
+  position: relative;
+}
+
+.kiger-showcase .callout-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.kiger-showcase .callout-content.reverse {
+  flex-direction: row;
+}
+
+.kiger-showcase .callout-label {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #2a2a2a;
+  white-space: nowrap;
+  text-shadow: 
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff,
+    0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.kiger-showcase .callout-line {
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(42, 42, 42, 0.6) 0%, rgba(42, 42, 42, 0.1) 100%);
+}
+
+.kiger-showcase .callout-content.reverse .callout-line {
+  background: linear-gradient(90deg, rgba(42, 42, 42, 0.1) 0%, rgba(42, 42, 42, 0.6) 100%);
+}
+
+.kiger-showcase .callout-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-cta-border, #8b3a3a);
+  box-shadow: 0 0 12px rgba(139, 58, 58, 0.5);
+  flex-shrink: 0;
+}
+
+/* Specific callout positions */
+.kiger-showcase .callout-glass {
+  transform: translateY(-30px);
+}
+
+.kiger-showcase .callout-tyres {
+  transform: translateY(50px);
+}
+
+/* ===== Price CTA - Bottom Center ===== */
+.kiger-showcase .price-column {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.kiger-showcase .price-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid #c45555;
+  border-radius: 50px;
+  padding: 1rem 2rem 1rem 2.5rem;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+.kiger-showcase .price-btn:hover {
+  background: #c45555;
+  border-color: #c45555;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(196, 85, 85, 0.3);
+}
+
+.kiger-showcase .price-btn:hover .price-amount,
+.kiger-showcase .price-btn:hover .price-period {
+  color: #f5f0e8;
+}
+
+.kiger-showcase .price-btn:hover .price-arrow {
+  transform: translateX(4px);
+}
+
+.kiger-showcase .price-amount {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #2a2a2a;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+  transition: color 0.35s ease;
+}
+
+.kiger-showcase .price-period {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(42, 42, 42, 0.7);
+  align-self: flex-end;
+  margin-bottom: 0.3rem;
+  transition: color 0.35s ease;
+}
+
+.kiger-showcase .price-arrow {
+  width: 20px;
+  height: 20px;
+  color: #2a2a2a;
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
+}
+
+/* ===== Section Header - Model Name ===== */
+.kiger-showcase .section-header {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  z-index: 20;
+}
+
+.kiger-showcase .model-name {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 3.2rem;
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--color-cta-border, #8b3a3a);
+  line-height: 1.1;
+  margin: 0 0 0.5rem 0;
+}
+
+.kiger-showcase .model-variant {
+  display: block;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #8b3a3a;
+  text-shadow: 
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff,
+    0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1200px) {
+  .kiger-showcase .bg-text::before,
+  .kiger-showcase .bg-text::after {
+    font-size: clamp(8rem, 18vw, 16rem);
+  }
+  
+  .kiger-showcase .callouts-right {
+    right: -20%;
+  }
+  
+  .kiger-showcase .model-name {
+    font-size: 2rem;
+  }
+  
+  .kiger-showcase .price-amount {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .kiger-showcase .showcase-container {
+    padding: 0 2rem;
+  }
+  
+  .kiger-showcase .callouts-right {
+    right: -15%;
+  }
+  
+  .kiger-showcase .car-showcase {
+    width: 80%;
+    position: relative;
+  }
+  
+  .kiger-image {
+    transform: none;
+  }
+  
+  .kiger-showcase .price-column {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 2rem;
+  }
+  
+  .kiger-showcase {
+    flex-direction: column;
+    padding: 6rem 0;
+  }
+  
+  .kiger-showcase .showcase-container {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .kiger-showcase .section-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    text-align: center;
+    margin-bottom: 2rem;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .kiger-showcase .bg-text::before,
+  .kiger-showcase .bg-text::after {
+    content: 'KIGER  KIGER';
+    font-size: 5rem;
+    color: rgba(139, 58, 58, 0.12);
+  }
+  
+  .kiger-showcase .car-showcase {
+    width: 100%;
+    max-width: none;
+    position: relative;
+    overflow: visible;
+  }
+  
+  .kiger-showcase .callouts-right {
+    position: absolute;
+    right: auto;
+    left: 85%;
+    top: 35%;
+    transform: none;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  /* Glass callout - points to front window */
+  .kiger-showcase .callout-glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-40px);
+  }
+  
+  /* Tyres callout - points to front tyre */
+  .kiger-showcase .callout-tyres {
+    position: absolute;
+    top: 80px;
+    left: -20px;
+    transform: none;
+  }
+  
+  .kiger-showcase .callout-label {
+    font-size: 0.5rem;
+    letter-spacing: 1.5px;
+  }
+  
+  .kiger-showcase .callout-line {
+    width: 30px;
+  }
+  
+  .kiger-showcase .callout-dot {
+    width: 7px;
+    height: 7px;
+  }
+  
+  .kiger-showcase .callout-content {
+    gap: 0.5rem;
+  }
+  
+  .kiger-image {
+    transform: scale(1.1);
+  }
+  
+  .kiger-showcase .model-name {
+    font-size: 2.2rem;
+    letter-spacing: 4px;
+  }
+  
+  .kiger-showcase .model-variant {
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+  }
+  
+  .kiger-showcase .price-amount {
+    font-size: 1.5rem;
+  }
+  
+  .kiger-showcase .price-btn {
+    padding: 0.8rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .kiger-showcase {
+    min-height: auto;
+    padding: 4rem 1rem;
+  }
+  
+  .kiger-showcase .bg-text::before,
+  .kiger-showcase .bg-text::after {
+    content: 'KIGER';
+    font-size: 4rem;
+    color: rgba(139, 58, 58, 0.12);
+  }
+  
+  .kiger-showcase .car-showcase {
+    width: 100%;
+  }
+  
+  .kiger-showcase .callouts-right {
+    left: 52%;
+    top: 22%;
+  }
+  
+  .kiger-showcase .callout-glass {
+    top: 0;
+    left: 0;
+  }
+  
+  .kiger-showcase .callout-tyres {
+    top: 60px;
+    left: -15px;
+  }
+  
+  .kiger-showcase .callout-label {
+    font-size: 0.45rem;
+    letter-spacing: 1px;
+  }
+  
+  .kiger-showcase .callout-line {
+    width: 20px;
+  }
+  
+  .kiger-showcase .callout-dot {
+    width: 5px;
+    height: 5px;
+  }
+  
+  .kiger-showcase .callout-content {
+    gap: 0.3rem;
+  }
+  
+  .kiger-image {
+    transform: scale(1.15);
+  }
+  
+  .kiger-showcase .model-name {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+  
+  .kiger-showcase .model-variant {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+  }
+  
+  .kiger-showcase .price-amount {
+    font-size: 1.3rem;
+  }
+}

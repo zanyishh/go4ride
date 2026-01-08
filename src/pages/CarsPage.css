@@ -1,0 +1,221 @@
+/* Cars Page Styles */
+.cars-page {
+  min-height: 100vh;
+  background: var(--color-bg-charcoal, #1a1a1a);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  contain: style;
+  overflow-x: hidden;
+}
+
+/* Parallax Container */
+.parallax-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+/* Footer Section - normal scroll after parallax */
+.footer-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background: #1a1a1a;
+}
+
+/* Car Slide */
+.car-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  transform: translateY(0);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 1;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.car-slide.active {
+  transform: translateY(0);
+  z-index: 2;
+}
+
+.car-slide.down-scroll {
+  transform: translateY(-100vh);
+  z-index: 1;
+}
+
+.car-slide.up-scroll {
+  transform: translateY(100vh);
+  z-index: 1;
+}
+
+/* Filter Navigation */
+.cars-filter-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(26, 26, 26, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(139, 58, 58, 0.2);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.filter-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 2px solid #8b3a3a;
+  border-radius: 50px;
+  color: #8b3a3a;
+  padding: 0.7rem 1.8rem;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  white-space: nowrap;
+}
+
+.filter-btn:hover {
+  background: #8b3a3a;
+  border-color: #8b3a3a;
+  color: #ffffff;
+}
+
+.filter-btn.active {
+  background: #8b3a3a;
+  border-color: #8b3a3a;
+  color: #ffffff;
+}
+
+.back-home-btn {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--color-text-primary, #f5f0e8);
+  text-decoration: none;
+  padding: 0.7rem 1.5rem;
+  border: 2px solid rgba(139, 58, 58, 0.4);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-home-btn:hover {
+  border-color: #8b3a3a;
+  background: rgba(139, 58, 58, 0.2);
+  color: #ffffff;
+}
+
+.back-arrow-icon {
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cars-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .parallax-container {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .footer-section {
+    position: relative;
+    z-index: 100;
+  }
+
+  .cars-filter-nav {
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .back-home-btn {
+    padding: 0.5rem;
+    min-width: auto;
+  }
+
+  .back-home-btn .back-text {
+    display: none;
+  }
+
+  .filter-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  .filter-btn {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.55rem;
+    letter-spacing: 1.5px;
+  }
+
+  .back-home-btn {
+    font-size: 0.75rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.8rem;
+    letter-spacing: 0.5px;
+  }
+
+  .back-home-btn {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.cars-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.cars-navbar .logo-text {
+  color: var(--color-text-primary, #f5f0e8);
+  text-decoration: none;
+}

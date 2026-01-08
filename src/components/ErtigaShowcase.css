@@ -1,0 +1,473 @@
+/* ===== Ertiga Showcase Section ===== */
+.ertiga-showcase {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a1a 0%, #121212 50%, #0f0f0f 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  contain: layout style paint;
+  content-visibility: auto;
+}
+
+/* Oversized Background Text - Repeated */
+.ertiga-showcase .bg-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ertiga-showcase .bg-text::before,
+.ertiga-showcase .bg-text::after {
+  content: 'ERTIGA  ERTIGA  ERTIGA  ERTIGA';
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(8rem, 15vw, 18rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(139, 58, 58, 0.12);
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1;
+}
+
+.ertiga-showcase .bg-text::before {
+  transform: translateY(-20%);
+}
+
+.ertiga-showcase .bg-text::after {
+  transform: translateY(20%);
+}
+
+/* Main Container */
+.ertiga-showcase .showcase-container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* ===== Car Image ===== */
+.ertiga-showcase .car-showcase {
+  position: relative;
+  width: 65%;
+  max-width: 1000px;
+  z-index: 10;
+}
+
+.ertiga-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 60px 80px rgba(0, 0, 0, 0.5));
+  transform: perspective(1000px) rotateY(-5deg) translateZ(0);
+  -webkit-transform: perspective(1000px) rotateY(-5deg) translateZ(0);
+  transition: transform 0.5s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.ertiga-showcase .car-shadow {
+  position: absolute;
+  bottom: -20px;
+  left: 10%;
+  width: 80%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: -1;
+}
+
+/* ===== Feature Callouts - Right Side Only ===== */
+.ertiga-showcase .callouts-right {
+  position: absolute;
+  right: -25%;
+  top: 45%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  z-index: 15;
+}
+
+.ertiga-showcase .callout {
+  position: relative;
+}
+
+.ertiga-showcase .callout-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ertiga-showcase .callout-content.reverse {
+  flex-direction: row;
+}
+
+.ertiga-showcase .callout-label {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-text-primary, #f5f0e8);
+  white-space: nowrap;
+}
+
+.ertiga-showcase .callout-line {
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(245, 240, 232, 0.6) 0%, rgba(245, 240, 232, 0.1) 100%);
+}
+
+.ertiga-showcase .callout-content.reverse .callout-line {
+  background: linear-gradient(90deg, rgba(245, 240, 232, 0.1) 0%, rgba(245, 240, 232, 0.6) 100%);
+}
+
+.ertiga-showcase .callout-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-cta-border, #8b3a3a);
+  box-shadow: 0 0 12px rgba(139, 58, 58, 0.5);
+  flex-shrink: 0;
+}
+
+/* Specific callout positions */
+.ertiga-showcase .callout-glass {
+  transform: translateY(-30px);
+}
+
+.ertiga-showcase .callout-tyres {
+  transform: translateY(50px);
+}
+
+/* ===== Price CTA - Bottom Center ===== */
+.ertiga-showcase .price-column {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.ertiga-showcase .price-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid #c45555;
+  border-radius: 50px;
+  padding: 1rem 2rem 1rem 2.5rem;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+.ertiga-showcase .price-btn:hover {
+  background: #c45555;
+  border-color: #c45555;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(196, 85, 85, 0.3);
+}
+
+.ertiga-showcase .price-btn:hover .price-arrow {
+  transform: translateX(4px);
+}
+
+.ertiga-showcase .price-amount {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.ertiga-showcase .price-period {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+  align-self: flex-end;
+  margin-bottom: 0.3rem;
+}
+
+.ertiga-showcase .price-arrow {
+  width: 20px;
+  height: 20px;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+  margin-left: 0.5rem;
+}
+
+/* ===== Section Header - Model Name ===== */
+.ertiga-showcase .section-header {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  z-index: 20;
+}
+
+.ertiga-showcase .model-name {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: 3.2rem;
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--color-cta-border, #8b3a3a);
+  line-height: 1.1;
+  margin: 0 0 0.5rem 0;
+}
+
+.ertiga-showcase .model-variant {
+  display: block;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #8b3a3a;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1200px) {
+  .ertiga-showcase .bg-text::before,
+  .ertiga-showcase .bg-text::after {
+    font-size: clamp(8rem, 18vw, 16rem);
+  }
+  
+  .ertiga-showcase .callouts-right {
+    right: -20%;
+  }
+  
+  .ertiga-showcase .model-name {
+    font-size: 2rem;
+  }
+  
+  .ertiga-showcase .price-amount {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .ertiga-showcase .showcase-container {
+    padding: 0 2rem;
+  }
+  
+  .ertiga-showcase .callouts-right {
+    right: -15%;
+  }
+  
+  .ertiga-showcase .car-showcase {
+    width: 80%;
+    position: relative;
+  }
+  
+  .ertiga-image {
+    transform: none;
+  }
+  
+  .ertiga-showcase .price-column {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 2rem;
+  }
+  
+  .ertiga-showcase {
+    flex-direction: column;
+    padding: 6rem 0;
+  }
+  
+  .ertiga-showcase .showcase-container {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .ertiga-showcase .section-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    text-align: center;
+    margin-bottom: 2rem;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .ertiga-showcase .bg-text::before,
+  .ertiga-showcase .bg-text::after {
+    content: 'ERTIGA  ERTIGA';
+    font-size: 5rem;
+    color: rgba(139, 58, 58, 0.12);
+  }
+  
+  .ertiga-showcase .car-showcase {
+    width: 100%;
+    max-width: none;
+    position: relative;
+    overflow: visible;
+  }
+  
+  .ertiga-showcase .callouts-right {
+    position: absolute;
+    right: auto;
+    left: 85%;
+    top: 35%;
+    transform: none;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  /* Glass callout - points to front window */
+  .ertiga-showcase .callout-glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-40px);
+  }
+  
+  /* Tyres callout - points to front tyre */
+  .ertiga-showcase .callout-tyres {
+    position: absolute;
+    top: 80px;
+    left: -20px;
+    transform: none;
+  }
+  
+  .ertiga-showcase .callout-label {
+    font-size: 0.5rem;
+    letter-spacing: 1.5px;
+  }
+  
+  .ertiga-showcase .callout-line {
+    width: 30px;
+  }
+  
+  .ertiga-showcase .callout-dot {
+    width: 7px;
+    height: 7px;
+  }
+  
+  .ertiga-showcase .callout-content {
+    gap: 0.5rem;
+  }
+  
+  .ertiga-image {
+    transform: scale(1.1);
+  }
+  
+  .ertiga-showcase .model-name {
+    font-size: 2.2rem;
+    letter-spacing: 4px;
+  }
+  
+  .ertiga-showcase .model-variant {
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+  }
+  
+  .ertiga-showcase .price-amount {
+    font-size: 1.5rem;
+  }
+  
+  .ertiga-showcase .price-btn {
+    padding: 0.8rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ertiga-showcase {
+    min-height: auto;
+    padding: 4rem 1rem;
+  }
+  
+  .ertiga-showcase .bg-text::before,
+  .ertiga-showcase .bg-text::after {
+    content: 'ERTIGA';
+    font-size: 4rem;
+    color: rgba(139, 58, 58, 0.12);
+  }
+  
+  .ertiga-showcase .car-showcase {
+    width: 100%;
+  }
+  
+  .ertiga-showcase .callouts-right {
+    left: 52%;
+    top: 22%;
+  }
+  
+  .ertiga-showcase .callout-glass {
+    top: 0;
+    left: 0;
+  }
+  
+  .ertiga-showcase .callout-tyres {
+    top: 60px;
+    left: -15px;
+  }
+  
+  .ertiga-showcase .callout-label {
+    font-size: 0.45rem;
+    letter-spacing: 1px;
+  }
+  
+  .ertiga-showcase .callout-line {
+    width: 20px;
+  }
+  
+  .ertiga-showcase .callout-dot {
+    width: 5px;
+    height: 5px;
+  }
+  
+  .ertiga-showcase .callout-content {
+    gap: 0.3rem;
+  }
+  
+  .ertiga-image {
+    transform: scale(1.15);
+  }
+  
+  .ertiga-showcase .model-name {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+  
+  .ertiga-showcase .model-variant {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+  }
+  
+  .ertiga-showcase .price-amount {
+    font-size: 1.3rem;
+  }
+}

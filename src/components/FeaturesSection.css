@@ -1,0 +1,249 @@
+/* ===== Features Section ===== */
+.features-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(15, 20, 25, 0.97) 0%, rgba(26, 31, 46, 0.98) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 6rem 2rem;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+/* ===== Section Header ===== */
+.features-header {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.features-tagline {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.5);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.features-title {
+  font-family: var(--font-serif, 'Cormorant Garamond', serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--color-text-primary, #f5f0e8);
+  margin: 0;
+}
+
+/* ===== Features Grid - Left ===== */
+.features-left {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  z-index: 10;
+}
+
+/* ===== Features Grid - Right ===== */
+.features-right {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  z-index: 10;
+}
+
+/* ===== Feature Item ===== */
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 1;
+}
+
+.features-left .feature-item {
+  flex-direction: row;
+}
+
+.features-right .feature-item {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+/* ===== Feature Icon ===== */
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(139, 58, 58, 0.15);
+  border: 1px solid rgba(139, 58, 58, 0.3);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.feature-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #c45555;
+}
+
+/* ===== Feature Text ===== */
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.feature-title {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text-primary, #f5f0e8);
+  margin: 0;
+}
+
+.feature-desc {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: rgba(245, 240, 232, 0.5);
+  margin: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+  .features-left { left: 3%; }
+  .features-right { right: 3%; }
+}
+
+@media (max-width: 992px) {
+  .features-section {
+    flex-direction: column;
+    padding: 5rem 1.5rem 3rem;
+    min-height: auto;
+  }
+  
+  .features-left,
+  .features-right {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    gap: 1.5rem;
+  }
+  
+  .features-left {
+    order: 1;
+    margin-bottom: 1.5rem;
+  }
+  
+  .features-right {
+    order: 2;
+  }
+  
+  .features-right .feature-item {
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  .features-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-section {
+    padding: 4rem 1rem 2.5rem;
+  }
+  
+  .features-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .features-title {
+    font-size: 1.5rem;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  
+  .feature-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .feature-title {
+    font-size: 0.85rem;
+  }
+  
+  .feature-desc {
+    font-size: 0.7rem;
+  }
+  
+  .features-left,
+  .features-right {
+    max-width: 100%;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-section {
+    padding: 3rem 1rem 2rem;
+  }
+  
+  .features-left,
+  .features-right {
+    gap: 1rem;
+  }
+  
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .feature-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .feature-title {
+    font-size: 0.8rem;
+  }
+  
+  .feature-desc {
+    font-size: 0.65rem;
+  }
+}
