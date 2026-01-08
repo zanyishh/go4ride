@@ -3,12 +3,16 @@ import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { useGLTF, Environment, ContactShadows } from '@react-three/drei'
 import * as THREE from 'three'
 import { EffectComposer, Bloom, ToneMapping } from '@react-three/postprocessing'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+
+// Configure Draco loader for useGLTF
+useGLTF.preload('/scene-compressed.glb')
 
 /* ============================
    CAR MODEL (SCROLL-CONTROLLED ROTATION)
    ============================ */
 function CarModel({ onLoaded, scrollProgress }) {
-  const { scene } = useGLTF('/scene.gltf')
+  const { scene } = useGLTF('/scene-compressed.glb')
   const carRef = useRef()
   const initialized = useRef(false)
   const { invalidate } = useThree()

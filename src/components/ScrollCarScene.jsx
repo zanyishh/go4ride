@@ -36,7 +36,7 @@ function CameraController({ scrollProgress }) {
    CAR MODEL WITH SCROLL ROTATION
    ============================ */
 function CarModel({ onLoaded, scrollProgress }) {
-  const { scene } = useGLTF('/scene.gltf')
+  const { scene } = useGLTF('/scene-compressed.glb')
   const carRef = useRef()
   const initialized = useRef(false)
   const baseRotation = useRef(0)
