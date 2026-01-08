@@ -919,31 +919,31 @@ html, body {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem 1.2rem 0.8rem;
+    padding: 0.8rem 1rem 0.6rem;
     margin-top: 0.2rem;
   }
 
   .nav-left {
-    gap: 0.6rem;
+    gap: 0.4rem;
   }
   
   .nav-right {
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
 
   .nav-link {
-    font-size: 0.7rem;
-    letter-spacing: 1.2px;
-    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 0.3rem 0.5rem;
   }
   
-  /* Mobile: Show only arrow for HOME link */
+  /* Mobile: Show only arrow for HOME link - smaller and subtle */
   .nav-link.home-link {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.65rem;
+    gap: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
   }
   
   .nav-link.home-link .home-text {
@@ -957,13 +957,13 @@ html, body {
   }
 
   .logo-text {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     letter-spacing: 4px;
   }
 
   .btn-book {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.6rem;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.65rem;
     letter-spacing: 1px;
     border-width: 1px;
   }

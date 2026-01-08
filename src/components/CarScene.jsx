@@ -130,30 +130,32 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
             const mat = child.material
             mat.needsUpdate = true
             
-            // Body panels - WET glossy black paint (piano black finish)
+            // Body panels - Premium automotive paint (showroom finish)
             if (matName.includes('body') || matName.includes('paint') ||
                 matName.includes('car') || matName.includes('metal') ||
                 name.includes('body') || name.includes('door') ||
                 name.includes('hood') || name.includes('trunk') ||
                 name.includes('fender') || name.includes('bumper') ||
                 name.includes('roof') || name.includes('pillar')) {
-              mat.color = new THREE.Color('#0a0a0a')
-              mat.metalness = 0.9
-              mat.roughness = 0.0
-              mat.envMapIntensity = 8.0
-              mat.clearcoat = 1.0
-              mat.clearcoatRoughness = 0.0
+              mat.color = new THREE.Color('#1a1a1a')
+              mat.metalness = 0.85
+              mat.roughness = 0.12
+              mat.envMapIntensity = 3.0
+              if (mat.clearcoat !== undefined) {
+                mat.clearcoat = 1.0
+                mat.clearcoatRoughness = 0.05
+              }
             }
-            // Windows - crystal clear glass
+            // Windows - tinted glass with subtle reflections
             else if (matName.includes('glass') || matName.includes('window') ||
                      name.includes('glass') || name.includes('window') ||
                      name.includes('windshield')) {
-              mat.color = new THREE.Color('#0a1520')
-              mat.metalness = 0.1
-              mat.roughness = 0.0
+              mat.color = new THREE.Color('#1a2530')
+              mat.metalness = 0.0
+              mat.roughness = 0.05
               mat.transparent = true
-              mat.opacity = 0.2
-              mat.envMapIntensity = 10.0
+              mat.opacity = 0.35
+              mat.envMapIntensity = 2.5
               mat.side = THREE.DoubleSide
             }
             // Tires - glossy rubber
@@ -164,49 +166,49 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
               mat.roughness = 0.4
               mat.envMapIntensity = 2.0
             }
-            // Rims - chrome mirror finish
+            // Rims - polished alloy finish
             else if (matName.includes('wheel') || matName.includes('rim') ||
                      name.includes('wheel') || name.includes('rim') ||
                      name.includes('alloy')) {
-              mat.color = new THREE.Color('#e8e8e8')
-              mat.metalness = 1.0
-              mat.roughness = 0.0
-              mat.envMapIntensity = 10.0
+              mat.color = new THREE.Color('#d0d0d0')
+              mat.metalness = 0.95
+              mat.roughness = 0.15
+              mat.envMapIntensity = 2.5
             }
-            // Headlights/taillights - crystal clear
+            // Headlights/taillights - polished lens
             else if (matName.includes('light') || matName.includes('lamp') ||
                      name.includes('headlight') || name.includes('taillight') ||
                      name.includes('fog')) {
-              mat.color = new THREE.Color('#ffffff')
-              mat.metalness = 1.0
-              mat.roughness = 0.0
-              mat.envMapIntensity = 12.0
+              mat.color = new THREE.Color('#f5f5f5')
+              mat.metalness = 0.3
+              mat.roughness = 0.1
+              mat.envMapIntensity = 3.0
             }
-            // Chrome parts - perfect mirror
+            // Chrome parts - polished chrome
             else if (matName.includes('chrome') || name.includes('chrome') ||
                      name.includes('mirror') || name.includes('handle')) {
-              mat.color = new THREE.Color('#ffffff')
-              mat.metalness = 1.0
-              mat.roughness = 0.0
-              mat.envMapIntensity = 12.0
+              mat.color = new THREE.Color('#e8e8e8')
+              mat.metalness = 0.95
+              mat.roughness = 0.1
+              mat.envMapIntensity = 3.5
             }
-            // Grille/trim - glossy dark chrome
+            // Grille/trim - glossy dark
             else if (matName.includes('grille') || matName.includes('grill') ||
                      matName.includes('trim') || name.includes('grille') ||
                      name.includes('badge') || name.includes('emblem')) {
-              mat.color = new THREE.Color('#1a1a1a')
-              mat.metalness = 1.0
-              mat.roughness = 0.0
-              mat.envMapIntensity = 8.0
+              mat.color = new THREE.Color('#252525')
+              mat.metalness = 0.8
+              mat.roughness = 0.2
+              mat.envMapIntensity = 2.5
             }
-            // Plastic parts - semi-gloss
+            // Plastic parts - matte black trim
             else if (matName.includes('plastic') || matName.includes('rubber') ||
                      name.includes('wiper') || name.includes('seal') ||
                      name.includes('molding')) {
-              mat.color = new THREE.Color('#0a0a0a')
-              mat.metalness = 0.3
-              mat.roughness = 0.2
-              mat.envMapIntensity = 4.0
+              mat.color = new THREE.Color('#151515')
+              mat.metalness = 0.1
+              mat.roughness = 0.5
+              mat.envMapIntensity = 1.0
             }
           }
         }
@@ -261,53 +263,53 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
 function SceneLights() {
   return (
     <>
-      {/* Strong ambient for overall visibility */}
-      <ambientLight intensity={0.8} color="#ffffff" />
+      {/* Soft ambient for base visibility */}
+      <ambientLight intensity={0.5} color="#f8f8ff" />
       
-      {/* Key light - strong main illumination */}
+      {/* Key light - main illumination from front-right */}
       <directionalLight
-        position={[10, 15, 8]}
-        intensity={6.0}
+        position={[8, 12, 10]}
+        intensity={2.5}
         color="#ffffff"
       />
       
-      {/* Fill light - balance shadows */}
+      {/* Fill light - soften shadows from left */}
       <directionalLight
-        position={[-8, 10, -5]}
-        intensity={4.0}
+        position={[-6, 8, -4]}
+        intensity={1.5}
+        color="#e8f0ff"
+      />
+      
+      {/* Rim light - edge definition from back */}
+      <directionalLight
+        position={[-8, 5, -8]}
+        intensity={2.0}
         color="#ffffff"
       />
       
-      {/* Rim light - define body lines */}
+      {/* Top light - subtle highlights on roof */}
       <directionalLight
-        position={[-10, 6, 10]}
-        intensity={5.0}
+        position={[0, 15, 0]}
+        intensity={1.5}
         color="#ffffff"
       />
       
-      {/* Top light - hood and roof highlights */}
-      <directionalLight
-        position={[0, 20, 0]}
-        intensity={4.0}
-        color="#ffffff"
-      />
-      
-      {/* Front accent - bumper and grille */}
+      {/* Front accent - grille and bumper detail */}
       <spotLight
-        position={[0, 4, 12]}
-        angle={0.5}
-        penumbra={0.6}
-        intensity={5.0}
-        color="#ffffff"
-      />
-      
-      {/* Side accent - doors and wheels */}
-      <spotLight
-        position={[12, 3, 0]}
+        position={[0, 5, 10]}
         angle={0.6}
         penumbra={0.5}
-        intensity={4.0}
+        intensity={2.0}
         color="#ffffff"
+      />
+      
+      {/* Side accent - wheel and door highlights */}
+      <spotLight
+        position={[10, 4, 2]}
+        angle={0.5}
+        penumbra={0.6}
+        intensity={1.5}
+        color="#fff8f0"
       />
     </>
   )
@@ -404,7 +406,7 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
           powerPreference: 'high-performance',
           antialias: !isMobile,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.4,
+          toneMappingExposure: 1.8,
           stencil: false,
           depth: true,
           alpha: true,
@@ -428,7 +430,7 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
             color="#000000"
             resolution={256}
           />
-          <Environment preset="sunset" background={false} />
+          <Environment preset="city" background={false} />
         </Suspense>
       </Canvas>
 
