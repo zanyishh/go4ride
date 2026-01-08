@@ -381,25 +381,37 @@
   }
   
   .dzire-image {
-    transform: scale(1.1);
+    transform: scale(0.95);
   }
   
   .dzire-showcase .model-name {
-    font-size: 2.2rem;
-    letter-spacing: 4px;
+    font-size: 1.9rem;
+    letter-spacing: 3px;
+    margin-top: 1rem;
   }
   
   .dzire-showcase .model-variant {
-    font-size: 0.85rem;
-    letter-spacing: 5px;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    margin-top: 0.3rem;
   }
   
   .dzire-showcase .price-amount {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
   
   .dzire-showcase .price-btn {
-    padding: 0.8rem 2rem;
+    padding: 0.7rem 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .dzire-showcase .price-column {
+    margin-top: 1rem;
+  }
+  
+  .dzire-showcase {
+    min-height: 90vh;
+    padding-bottom: 2rem;
   }
 }
 

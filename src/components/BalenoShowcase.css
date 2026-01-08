@@ -381,32 +381,44 @@
   }
   
   .baleno-image {
-    transform: scale(1.1);
+    transform: scale(0.95);
   }
   
   .baleno-showcase .model-name {
-    font-size: 2.2rem;
-    letter-spacing: 4px;
+    font-size: 1.9rem;
+    letter-spacing: 3px;
+    margin-top: 1rem;
   }
   
   .baleno-showcase .model-variant {
-    font-size: 0.85rem;
-    letter-spacing: 5px;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    margin-top: 0.3rem;
   }
   
   .baleno-showcase .price-amount {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
   
   .baleno-showcase .price-btn {
-    padding: 0.8rem 2rem;
+    padding: 0.7rem 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .baleno-showcase .price-column {
+    margin-top: 1rem;
+  }
+  
+  .baleno-showcase {
+    min-height: 90vh;
+    padding-bottom: 2rem;
   }
 }
 
 @media (max-width: 480px) {
   .baleno-showcase {
-    min-height: auto;
-    padding: 4rem 1rem;
+    min-height: 85vh;
+    padding: 3rem 1rem 1.5rem;
   }
   
   .baleno-showcase .bg-text::before,
@@ -454,20 +466,30 @@
   }
   
   .baleno-image {
-    transform: scale(1.15);
+    transform: scale(0.9);
   }
   
   .baleno-showcase .model-name {
-    font-size: 1.8rem;
-    letter-spacing: 3px;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-top: 0.8rem;
   }
   
   .baleno-showcase .model-variant {
-    font-size: 0.8rem;
-    letter-spacing: 4px;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    margin-top: 0.2rem;
   }
   
   .baleno-showcase .price-amount {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+  
+  .baleno-showcase .price-btn {
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .baleno-showcase .price-column {
+    margin-top: 0.8rem;
   }
 }

@@ -919,20 +919,21 @@ html, body {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.7rem 1rem;
+    padding: 1rem 1rem 0.7rem;
+    margin-top: 0.3rem;
   }
 
   .nav-left {
-    gap: 0.6rem;
+    gap: 0.5rem;
   }
   
   .nav-right {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .nav-link {
-    font-size: 0.6rem;
-    letter-spacing: 2px;
+    font-size: 0.55rem;
+    letter-spacing: 1.5px;
   }
   
   /* Mobile: Show only arrow for HOME link */
@@ -956,9 +957,10 @@ html, body {
   }
 
   .btn-book {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.55rem;
-    letter-spacing: 1.5px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+    border-width: 1.5px;
   }
 
   .hero-title {
@@ -982,7 +984,7 @@ html, body {
   .hero-overlay {
     position: fixed !important;
     top: auto;
-    bottom: 10%;
+    bottom: 6%;
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -1071,9 +1073,12 @@ html, body {
     display: none;
   }
 
-  /* Mobile: increase car size and push up, move right */
+  /* Mobile: center car properly, prevent left cut-off */
   .car-scene-container {
-    transform: scale(1.1) translateX(8%) translateY(-12%);
+    transform: scale(0.95) translateX(0%) translateY(-10%);
+    width: 100%;
+    max-width: 100vw;
+    overflow: visible;
   }
   
   /* Ensure scene wrapper has no fading effect on mobile */

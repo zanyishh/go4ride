@@ -247,7 +247,7 @@ function SceneLights() {
 /* ============================
    SCROLL-ANIMATED CAMERA (CINEMATIC ORBIT)
    ============================ */
-function ScrollCamera({ scrollProgress }) {
+function ScrollCamera({ scrollProgress, isMobile }) {
   const { camera, invalidate } = useThree()
 
   useFrame(() => {
@@ -256,30 +256,44 @@ function ScrollCamera({ scrollProgress }) {
     // Custom easing for smooth cinematic feel
     const eased = 1 - Math.pow(1 - progress, 3)
     
-    // Orbit camera around the car while descending
-    // Start: elevated front view, End: lower side/rear dramatic angle
-    const startAngle = Math.PI * 0.1  // Front-ish
-    const endAngle = Math.PI * 0.65   // Side-rear
-    const angle = THREE.MathUtils.lerp(startAngle, endAngle, eased)
+    // Mobile: adjusted camera settings for better framing
+    if (isMobile) {
+      // Mobile camera - more centered, slightly further back
+      const startAngle = Math.PI * 0.15
+      const endAngle = Math.PI * 0.6
+      const angle = THREE.MathUtils.lerp(startAngle, endAngle, eased)
+      
+      const radius = THREE.MathUtils.lerp(10, 8.5, eased)
+      const height = THREE.MathUtils.lerp(3.2, 2, eased)
+      
+      camera.position.x = Math.sin(angle) * radius
+      camera.position.z = Math.cos(angle) * radius
+      camera.position.y = height
+      
+      const lookAtY = THREE.MathUtils.lerp(0.4, 0.1, eased)
+      camera.lookAt(0, lookAtY, 0)
+    } else {
+      // Desktop camera - original settings
+      const startAngle = Math.PI * 0.1
+      const endAngle = Math.PI * 0.65
+      const angle = THREE.MathUtils.lerp(startAngle, endAngle, eased)
+      
+      const startRadius = 9
+      const endRadius = 7.5
+      const radius = THREE.MathUtils.lerp(startRadius, endRadius, eased)
+      
+      const startHeight = 2.8
+      const endHeight = 1.6
+      const height = THREE.MathUtils.lerp(startHeight, endHeight, eased)
+      
+      camera.position.x = Math.sin(angle) * radius
+      camera.position.z = Math.cos(angle) * radius
+      camera.position.y = height
+      
+      const lookAtY = THREE.MathUtils.lerp(0.3, 0, eased)
+      camera.lookAt(0, lookAtY, 0)
+    }
     
-    // Camera distance from center (pulls in slightly)
-    const startRadius = 9
-    const endRadius = 7.5
-    const radius = THREE.MathUtils.lerp(startRadius, endRadius, eased)
-    
-    // Camera height (descends for dramatic low angle)
-    const startHeight = 2.8
-    const endHeight = 1.6
-    const height = THREE.MathUtils.lerp(startHeight, endHeight, eased)
-    
-    // Calculate orbital position
-    camera.position.x = Math.sin(angle) * radius
-    camera.position.z = Math.cos(angle) * radius
-    camera.position.y = height
-    
-    // Look slightly above car center for better framing
-    const lookAtY = THREE.MathUtils.lerp(0.3, 0, eased)
-    camera.lookAt(0, lookAtY, 0)
     camera.updateProjectionMatrix()
     invalidate()
   })
@@ -292,10 +306,21 @@ function ScrollCamera({ scrollProgress }) {
    ============================ */
 export default function CarScene({ onAnimationComplete, scrollProgress }) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const defaultScrollRef = useRef(0)
   
   // Use provided scrollProgress or default
   const scrollRef = scrollProgress || defaultScrollRef
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     if (isLoaded && onAnimationComplete) {
@@ -308,31 +333,33 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
       <Canvas
         gl={{
           powerPreference: 'high-performance',
-          antialias: false,
+          antialias: !isMobile,
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.4,
           stencil: false,
           depth: true,
           alpha: true,
         }}
-        dpr={1.5}
-        performance={{ min: 0.3 }}
+        dpr={isMobile ? 1 : 1.5}
+        performance={{ min: isMobile ? 0.5 : 0.3 }}
         frameloop="demand"
         style={{ background: 'transparent' }}
       >
-        <ScrollCamera scrollProgress={scrollRef} />
+        <ScrollCamera scrollProgress={scrollRef} isMobile={isMobile} />
         <SceneLights />
 
         <Suspense fallback={null}>
           <CarModel onLoaded={() => setIsLoaded(true)} scrollProgress={scrollRef} />
-          <ContactShadows
-            position={[0, -0.5, 0]}
-            opacity={0.45}
-            scale={14}
-            blur={2}
-            far={5}
-            color="#000000"
-          />
+          {!isMobile && (
+            <ContactShadows
+              position={[0, -0.5, 0]}
+              opacity={0.45}
+              scale={14}
+              blur={2}
+              far={5}
+              color="#000000"
+            />
+          )}
           <Environment preset="sunset" background={false} />
         </Suspense>
       </Canvas>
