@@ -919,28 +919,31 @@ html, body {
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem 1rem 0.7rem;
-    margin-top: 0.3rem;
+    padding: 0.8rem 1rem 0.6rem;
+    margin-top: 0.2rem;
   }
 
   .nav-left {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   
   .nav-right {
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .nav-link {
-    font-size: 0.55rem;
-    letter-spacing: 1.5px;
+    font-size: 0.5rem;
+    letter-spacing: 1px;
+    padding: 0.2rem 0.4rem;
   }
   
-  /* Mobile: Show only arrow for HOME link */
+  /* Mobile: Show only arrow for HOME link - smaller and subtle */
   .nav-link.home-link {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.2rem;
+    padding: 0.15rem 0.3rem;
+    font-size: 0.45rem;
   }
   
   .nav-link.home-link .home-text {
@@ -949,6 +952,8 @@ html, body {
   
   .nav-link.home-link .home-arrow {
     display: block;
+    width: 12px;
+    height: 12px;
   }
 
   .logo-text {
@@ -984,7 +989,7 @@ html, body {
   .hero-overlay {
     position: fixed !important;
     top: auto;
-    bottom: 6%;
+    bottom: 3%;
     left: 50%;
     right: auto;
     transform: translateX(-50%);

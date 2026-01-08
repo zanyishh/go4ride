@@ -193,6 +193,210 @@
     font-size: 0.7rem;
     padding: 0.5rem 0.8rem;
   }
+  
+  /* ===== UNIFIED CAR SHOWCASE MOBILE LAYOUT ===== */
+  /* Fixed height for all showcases to prevent jumping */
+  .baleno-showcase,
+  .magnite-showcase,
+  .magniteblack-showcase,
+  .dzire-showcase,
+  .ertiga-showcase,
+  .kiger-showcase,
+  .triber-showcase,
+  .thar-showcase {
+    min-height: 100vh !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    padding: 0 !important;
+    padding-top: 60px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+  }
+  
+  /* Fixed background text position for all cars */
+  .baleno-showcase .bg-text,
+  .magnite-showcase .bg-text,
+  .magniteblack-showcase .bg-text,
+  .dzire-showcase .bg-text,
+  .ertiga-showcase .bg-text,
+  .kiger-showcase .bg-text,
+  .triber-showcase .bg-text,
+  .thar-showcase .bg-text,
+  .bg-text {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Fixed container layout for all cars */
+  .baleno-showcase .showcase-container,
+  .magnite-showcase .showcase-container,
+  .magniteblack-showcase .showcase-container,
+  .dzire-showcase .showcase-container,
+  .ertiga-showcase .showcase-container,
+  .kiger-showcase .showcase-container,
+  .triber-showcase .showcase-container,
+  .thar-showcase .showcase-container,
+  .showcase-container {
+    height: 100% !important;
+    padding: 0 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+  
+  /* Fixed section header position - top of card */
+  .baleno-showcase .section-header,
+  .magnite-showcase .section-header,
+  .magniteblack-showcase .section-header,
+  .dzire-showcase .section-header,
+  .ertiga-showcase .section-header,
+  .kiger-showcase .section-header,
+  .triber-showcase .section-header,
+  .thar-showcase .section-header,
+  .section-header {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    text-align: center !important;
+    margin-bottom: 0.8rem !important;
+    order: -1 !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Fixed model name styles */
+  .baleno-showcase .model-name,
+  .magnite-showcase .model-name,
+  .magniteblack-showcase .model-name,
+  .dzire-showcase .model-name,
+  .ertiga-showcase .model-name,
+  .kiger-showcase .model-name,
+  .triber-showcase .model-name,
+  .thar-showcase .model-name,
+  .model-name {
+    font-size: 1.6rem !important;
+    letter-spacing: 2px !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+  }
+  
+  /* Fixed variant styles */
+  .baleno-showcase .model-variant,
+  .magnite-showcase .model-variant,
+  .magniteblack-showcase .model-variant,
+  .dzire-showcase .model-variant,
+  .ertiga-showcase .model-variant,
+  .kiger-showcase .model-variant,
+  .triber-showcase .model-variant,
+  .thar-showcase .model-variant,
+  .model-variant {
+    font-size: 0.65rem !important;
+    letter-spacing: 3px !important;
+    margin-top: 0.25rem !important;
+  }
+  
+  /* Fixed car image container */
+  .baleno-showcase .car-showcase,
+  .magnite-showcase .car-showcase,
+  .magniteblack-showcase .car-showcase,
+  .dzire-showcase .car-showcase,
+  .ertiga-showcase .car-showcase,
+  .kiger-showcase .car-showcase,
+  .triber-showcase .car-showcase,
+  .thar-showcase .car-showcase,
+  .car-showcase {
+    width: 100% !important;
+    max-width: 380px !important;
+    height: 200px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  /* Fixed car image size */
+  .baleno-image,
+  .magnite-image,
+  .magniteblack-image,
+  .dzire-image,
+  .ertiga-image,
+  .kiger-image,
+  .triber-image,
+  .thar-image {
+    width: 100% !important;
+    max-width: 350px !important;
+    height: auto !important;
+    max-height: 180px !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+  
+  /* Fixed price column position */
+  .baleno-showcase .price-column,
+  .magnite-showcase .price-column,
+  .magniteblack-showcase .price-column,
+  .dzire-showcase .price-column,
+  .ertiga-showcase .price-column,
+  .kiger-showcase .price-column,
+  .triber-showcase .price-column,
+  .thar-showcase .price-column,
+  .price-column {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin-top: 0.8rem !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Fixed price button styles */
+  .baleno-showcase .price-btn,
+  .magnite-showcase .price-btn,
+  .magniteblack-showcase .price-btn,
+  .dzire-showcase .price-btn,
+  .ertiga-showcase .price-btn,
+  .kiger-showcase .price-btn,
+  .triber-showcase .price-btn,
+  .thar-showcase .price-btn,
+  .price-btn {
+    padding: 0.6rem 1.3rem !important;
+    margin: 0 !important;
+  }
+  
+  /* Fixed price amount styles */
+  .baleno-showcase .price-amount,
+  .magnite-showcase .price-amount,
+  .magniteblack-showcase .price-amount,
+  .dzire-showcase .price-amount,
+  .ertiga-showcase .price-amount,
+  .kiger-showcase .price-amount,
+  .triber-showcase .price-amount,
+  .thar-showcase .price-amount,
+  .price-amount {
+    font-size: 1.3rem !important;
+  }
+  
+  /* Hide callouts on mobile for cleaner look */
+  .baleno-showcase .callouts-right,
+  .magnite-showcase .callouts-right,
+  .magniteblack-showcase .callouts-right,
+  .dzire-showcase .callouts-right,
+  .ertiga-showcase .callouts-right,
+  .kiger-showcase .callouts-right,
+  .triber-showcase .callouts-right,
+  .thar-showcase .callouts-right,
+  .callouts-right {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {
