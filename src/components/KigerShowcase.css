@@ -401,7 +401,7 @@
   
   .kiger-image {
     transform: scale(1.15);
-    margin-top: -4rem;
+    margin-top: -6rem;
   }
 
   .kiger-showcase .model-name {
@@ -426,7 +426,7 @@
   }
 
   .kiger-showcase .price-column {
-    margin-top: -3rem;
+    margin-top: -5rem;
   }
 
   .kiger-showcase {

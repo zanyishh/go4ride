@@ -111,10 +111,10 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
             return
           }
           
-          // Remove small geometry (not visible at distance)
+          // Remove small geometry (not visible at distance) - more aggressive
           if (child.geometry) {
             child.geometry.computeBoundingSphere()
-            if (child.geometry.boundingSphere && child.geometry.boundingSphere.radius < 0.03) {
+            if (child.geometry.boundingSphere && child.geometry.boundingSphere.radius < 0.05) {
               toRemove.push(child)
               return
             }
@@ -124,29 +124,27 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
           child.castShadow = false
           child.receiveShadow = false
           
-          // PREMIUM EXTERIOR MATERIALS - Ultra high quality outer body
+          // ULTRA GLOSSY REALISTIC - Wet showroom finish
           if (child.material) {
             child.material = child.material.clone()
             const mat = child.material
             mat.needsUpdate = true
             
-            // BODY PANELS - Ultra-realistic showroom finish (bonnet, doors, front)
+            // Body panels - WET glossy black paint (piano black finish)
             if (matName.includes('body') || matName.includes('paint') ||
                 matName.includes('car') || matName.includes('metal') ||
                 name.includes('body') || name.includes('door') ||
-                name.includes('hood') || name.includes('bonnet') ||
-                name.includes('trunk') || name.includes('fender') || 
-                name.includes('bumper') || name.includes('front') ||
-                name.includes('roof') || name.includes('pillar') ||
-                name.includes('quarter') || name.includes('panel')) {
-              mat.color = new THREE.Color('#020202')
-              mat.metalness = 0.95
-              mat.roughness = 0.03
-              mat.envMapIntensity = 15.0
+                name.includes('hood') || name.includes('trunk') ||
+                name.includes('fender') || name.includes('bumper') ||
+                name.includes('roof') || name.includes('pillar')) {
+              mat.color = new THREE.Color('#0a0a0a')
+              mat.metalness = 0.9
+              mat.roughness = 0.0
+              mat.envMapIntensity = 8.0
               mat.clearcoat = 1.0
-              mat.clearcoatRoughness = 0.01
+              mat.clearcoatRoughness = 0.0
             }
-            // WINDOWS - Ultra clear reflective glass
+            // Windows - crystal clear glass
             else if (matName.includes('glass') || matName.includes('window') ||
                      name.includes('glass') || name.includes('window') ||
                      name.includes('windshield')) {
@@ -154,64 +152,61 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
               mat.metalness = 0.1
               mat.roughness = 0.0
               mat.transparent = true
-              mat.opacity = 0.25
-              mat.envMapIntensity = 8.0
+              mat.opacity = 0.2
+              mat.envMapIntensity = 10.0
+              mat.side = THREE.DoubleSide
             }
-            // TIRES - Ultra-realistic premium rubber
+            // Tires - glossy rubber
             else if (matName.includes('tire') || matName.includes('tyre') ||
                      name.includes('tire') || name.includes('tyre')) {
-              mat.color = new THREE.Color('#0a0a0a')
-              mat.metalness = 0.02
-              mat.roughness = 0.85
-              mat.envMapIntensity = 0.8
-              mat.normalScale = new THREE.Vector2(1.5, 1.5)
+              mat.color = new THREE.Color('#080808')
+              mat.metalness = 0.1
+              mat.roughness = 0.4
+              mat.envMapIntensity = 2.0
             }
-            // RIMS - Hyper-realistic diamond-cut polished alloy
+            // Rims - chrome mirror finish
             else if (matName.includes('wheel') || matName.includes('rim') ||
-                     matName.includes('alloy') || name.includes('wheel') || 
-                     name.includes('rim') || name.includes('spoke')) {
-              mat.color = new THREE.Color('#f8f8f8')
+                     name.includes('wheel') || name.includes('rim') ||
+                     name.includes('alloy')) {
+              mat.color = new THREE.Color('#e8e8e8')
               mat.metalness = 1.0
               mat.roughness = 0.0
-              mat.envMapIntensity = 18.0
+              mat.envMapIntensity = 10.0
             }
-            // HEADLIGHTS & TAILLIGHTS - Photorealistic crystal optics
+            // Headlights/taillights - crystal clear
             else if (matName.includes('light') || matName.includes('lamp') ||
                      name.includes('headlight') || name.includes('taillight') ||
-                     name.includes('fog') || name.includes('led') ||
-                     name.includes('drl') || name.includes('indicator')) {
-              mat.metalness = 1.0
-              mat.roughness = 0.0
-              mat.envMapIntensity = 20.0
-              mat.transparent = true
-              mat.opacity = 0.95
-            }
-            // CHROME & TRIM - Flawless mirror-polished finish
-            else if (matName.includes('chrome') || name.includes('chrome') ||
-                     name.includes('mirror') || name.includes('handle') ||
-                     name.includes('trim') || name.includes('molding') ||
-                     name.includes('badge') || name.includes('emblem') ||
-                     name.includes('grille') || name.includes('grill')) {
+                     name.includes('fog')) {
               mat.color = new THREE.Color('#ffffff')
               mat.metalness = 1.0
               mat.roughness = 0.0
-              mat.envMapIntensity = 25.0
+              mat.envMapIntensity = 12.0
             }
-            // PLASTIC PARTS - Premium matte black
+            // Chrome parts - perfect mirror
+            else if (matName.includes('chrome') || name.includes('chrome') ||
+                     name.includes('mirror') || name.includes('handle')) {
+              mat.color = new THREE.Color('#ffffff')
+              mat.metalness = 1.0
+              mat.roughness = 0.0
+              mat.envMapIntensity = 12.0
+            }
+            // Grille/trim - glossy dark chrome
+            else if (matName.includes('grille') || matName.includes('grill') ||
+                     matName.includes('trim') || name.includes('grille') ||
+                     name.includes('badge') || name.includes('emblem')) {
+              mat.color = new THREE.Color('#1a1a1a')
+              mat.metalness = 1.0
+              mat.roughness = 0.0
+              mat.envMapIntensity = 8.0
+            }
+            // Plastic parts - semi-gloss
             else if (matName.includes('plastic') || matName.includes('rubber') ||
                      name.includes('wiper') || name.includes('seal') ||
-                     name.includes('antenna') || name.includes('spoiler')) {
+                     name.includes('molding')) {
               mat.color = new THREE.Color('#0a0a0a')
-              mat.metalness = 0.0
-              mat.roughness = 0.7
-              mat.envMapIntensity = 1.0
-            }
-            // Everything else exterior - dark premium finish
-            else {
-              mat.color = new THREE.Color('#0f0f0f')
               mat.metalness = 0.3
-              mat.roughness = 0.4
-              mat.envMapIntensity = 3.0
+              mat.roughness = 0.2
+              mat.envMapIntensity = 4.0
             }
           }
         }
@@ -266,53 +261,53 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
 function SceneLights() {
   return (
     <>
-      {/* Soft ambient fill - subtle blue tint for showroom feel */}
-      <ambientLight intensity={0.4} color="#e0e8ff" />
+      {/* Strong ambient for overall visibility */}
+      <ambientLight intensity={0.8} color="#ffffff" />
       
-      {/* Key light - main illumination from top-right */}
+      {/* Key light - strong main illumination */}
       <directionalLight
         position={[10, 15, 8]}
-        intensity={4.0}
-        color="#fffaf0"
+        intensity={6.0}
+        color="#ffffff"
       />
       
-      {/* Fill light - soften shadows from left */}
+      {/* Fill light - balance shadows */}
       <directionalLight
         position={[-8, 10, -5]}
-        intensity={2.0}
-        color="#f0f5ff"
+        intensity={4.0}
+        color="#ffffff"
       />
       
-      {/* Rim light - strong edge definition for body lines */}
+      {/* Rim light - define body lines */}
       <directionalLight
         position={[-10, 6, 10]}
-        intensity={3.0}
+        intensity={5.0}
         color="#ffffff"
       />
       
-      {/* Top light - roof and hood reflections */}
+      {/* Top light - hood and roof highlights */}
       <directionalLight
         position={[0, 20, 0]}
-        intensity={2.0}
+        intensity={4.0}
         color="#ffffff"
       />
       
-      {/* Front accent - grille, bumper and headlights */}
+      {/* Front accent - bumper and grille */}
       <spotLight
         position={[0, 4, 12]}
         angle={0.5}
         penumbra={0.6}
-        intensity={2.5}
+        intensity={5.0}
         color="#ffffff"
       />
       
-      {/* Side accent - wheel and door highlights */}
+      {/* Side accent - doors and wheels */}
       <spotLight
         position={[12, 3, 0]}
         angle={0.6}
         penumbra={0.5}
-        intensity={1.5}
-        color="#fffef8"
+        intensity={4.0}
+        color="#ffffff"
       />
     </>
   )
@@ -426,12 +421,12 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
           <CarModel onLoaded={() => setIsLoaded(true)} scrollProgress={scrollRef} isMobile={isMobile} />
           <ContactShadows
             position={[0, -0.5, 0]}
-            opacity={isMobile ? 0.35 : 0.45}
-            scale={isMobile ? 10 : 14}
-            blur={isMobile ? 1.5 : 2}
-            far={isMobile ? 3 : 5}
+            opacity={0.35}
+            scale={12}
+            blur={2.5}
+            far={4}
             color="#000000"
-            resolution={isMobile ? 256 : 512}
+            resolution={256}
           />
           <Environment preset="sunset" background={false} />
         </Suspense>

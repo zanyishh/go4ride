@@ -13,7 +13,7 @@ export default function Footer() {
           </div>
           <div className="footer-stat">
             <span className="stat-label">LOCATION</span>
-            <span className="stat-value">Nallur, Tiruppur</span>
+            <span className="stat-value">Rakkiyapalayam, Tiruppur</span>
           </div>
         </div>
       </div>
