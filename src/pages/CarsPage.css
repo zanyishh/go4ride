@@ -341,13 +341,13 @@
   .car-showcase {
     width: 100% !important;
     max-width: 100vw !important;
-    height: 320px !important;
-    min-height: 300px !important;
+    height: 360px !important;
+    min-height: 340px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
-    margin: 0.5rem 0 !important;
+    margin: -0.5rem 0 0 0 !important;
     z-index: 5 !important;
   }
   
@@ -361,9 +361,9 @@
   .triber-image,
   .thar-image {
     width: 100% !important;
-    max-width: 98vw !important;
+    max-width: 100vw !important;
     height: auto !important;
-    max-height: 300px !important;
+    max-height: 340px !important;
     object-fit: contain !important;
     transform: none !important;
   }
@@ -382,7 +382,7 @@
     bottom: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-top: 1.8rem !important;
+    margin-top: 0.5rem !important;
     margin-bottom: 0 !important;
     flex-shrink: 0 !important;
   }
