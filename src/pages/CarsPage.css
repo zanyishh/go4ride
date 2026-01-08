@@ -155,16 +155,16 @@
   .footer-section {
     position: relative;
     z-index: 100;
-    margin-top: -2rem;
+    margin-top: 0;
   }
 
   .cars-filter-nav {
     flex-direction: row;
     gap: 0.4rem;
-    padding: 1rem 0.8rem 0.7rem;
+    padding: 0.8rem 0.8rem 0.6rem;
     flex-wrap: nowrap;
     overflow-x: auto;
-    margin-top: 0.2rem;
+    margin-top: 0;
   }
 
   .back-home-btn {
@@ -204,19 +204,20 @@
   .kiger-showcase,
   .triber-showcase,
   .thar-showcase {
-    min-height: 100vh !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
+    min-height: calc(100vh - 60px) !important;
+    height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
     padding: 0 !important;
-    padding-top: 60px !important;
+    padding-top: 0 !important;
+    margin-top: 60px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     overflow: hidden !important;
   }
   
-  /* Fixed background text position for all cars */
+  /* Fixed background text position for all cars - centered behind car image */
   .baleno-showcase .bg-text,
   .magnite-showcase .bg-text,
   .magniteblack-showcase .bg-text,
@@ -229,9 +230,31 @@
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -45%) !important;
     width: 100% !important;
     height: auto !important;
+    z-index: 1 !important;
+  }
+  
+  /* Background text styling - ensure it doesn't overlap header */
+  .baleno-showcase .bg-text::before,
+  .magnite-showcase .bg-text::before,
+  .magniteblack-showcase .bg-text::before,
+  .dzire-showcase .bg-text::before,
+  .ertiga-showcase .bg-text::before,
+  .kiger-showcase .bg-text::before,
+  .triber-showcase .bg-text::before,
+  .thar-showcase .bg-text::before,
+  .baleno-showcase .bg-text::after,
+  .magnite-showcase .bg-text::after,
+  .magniteblack-showcase .bg-text::after,
+  .dzire-showcase .bg-text::after,
+  .ertiga-showcase .bg-text::after,
+  .kiger-showcase .bg-text::after,
+  .triber-showcase .bg-text::after,
+  .thar-showcase .bg-text::after {
+    font-size: clamp(4rem, 18vw, 6rem) !important;
+    line-height: 1.1 !important;
   }
   
   /* Fixed container layout for all cars */
@@ -245,15 +268,16 @@
   .thar-showcase .showcase-container,
   .showcase-container {
     height: 100% !important;
-    padding: 0 1rem !important;
+    padding: 1.5rem 1rem 1rem !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 0 !important;
+    justify-content: flex-start !important;
+    gap: 0.5rem !important;
+    z-index: 2 !important;
   }
   
-  /* Fixed section header position - top of card */
+  /* Fixed section header position - clear separation from filter nav */
   .baleno-showcase .section-header,
   .magnite-showcase .section-header,
   .magniteblack-showcase .section-header,
@@ -267,9 +291,11 @@
     top: auto !important;
     left: auto !important;
     text-align: center !important;
-    margin-bottom: 0.8rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
     order: -1 !important;
     flex-shrink: 0 !important;
+    z-index: 10 !important;
   }
   
   /* Fixed model name styles */
@@ -282,7 +308,7 @@
   .triber-showcase .model-name,
   .thar-showcase .model-name,
   .model-name {
-    font-size: 1.6rem !important;
+    font-size: 1.5rem !important;
     letter-spacing: 2px !important;
     margin: 0 !important;
     line-height: 1.2 !important;
@@ -298,12 +324,12 @@
   .triber-showcase .model-variant,
   .thar-showcase .model-variant,
   .model-variant {
-    font-size: 0.65rem !important;
+    font-size: 0.6rem !important;
     letter-spacing: 3px !important;
-    margin-top: 0.25rem !important;
+    margin-top: 0.2rem !important;
   }
   
-  /* Fixed car image container */
+  /* Fixed car image container - larger for better visual presence */
   .baleno-showcase .car-showcase,
   .magnite-showcase .car-showcase,
   .magniteblack-showcase .car-showcase,
@@ -314,16 +340,18 @@
   .thar-showcase .car-showcase,
   .car-showcase {
     width: 100% !important;
-    max-width: 380px !important;
-    height: 200px !important;
+    max-width: 420px !important;
+    height: 240px !important;
+    min-height: 220px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
-    margin: 0.5rem 0 !important;
+    margin: 0.8rem 0 !important;
+    z-index: 5 !important;
   }
   
-  /* Fixed car image size */
+  /* Fixed car image size - larger and more prominent */
   .baleno-image,
   .magnite-image,
   .magniteblack-image,
@@ -333,14 +361,14 @@
   .triber-image,
   .thar-image {
     width: 100% !important;
-    max-width: 350px !important;
+    max-width: 400px !important;
     height: auto !important;
-    max-height: 180px !important;
+    max-height: 220px !important;
     object-fit: contain !important;
     transform: none !important;
   }
   
-  /* Fixed price column position */
+  /* Fixed price column position - reduced bottom spacing */
   .baleno-showcase .price-column,
   .magnite-showcase .price-column,
   .magniteblack-showcase .price-column,
@@ -354,7 +382,8 @@
     bottom: auto !important;
     left: auto !important;
     transform: none !important;
-    margin-top: 0.8rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0 !important;
     flex-shrink: 0 !important;
   }
   
@@ -368,7 +397,7 @@
   .triber-showcase .price-btn,
   .thar-showcase .price-btn,
   .price-btn {
-    padding: 0.6rem 1.3rem !important;
+    padding: 0.5rem 1.2rem !important;
     margin: 0 !important;
   }
   
@@ -382,7 +411,7 @@
   .triber-showcase .price-amount,
   .thar-showcase .price-amount,
   .price-amount {
-    font-size: 1.3rem !important;
+    font-size: 1.2rem !important;
   }
   
   /* Hide callouts on mobile for cleaner look */
