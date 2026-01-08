@@ -62,7 +62,7 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
             return
           }
           
-          // MOBILE ONLY: Extra aggressive removal of hidden internal geometry
+          // MOBILE ONLY: Ultra-aggressive removal - keep ONLY visible exterior
           if (isMobile) {
             // Remove any geometry that's typically internal or not visible from exterior
             if (name.includes('inner') || name.includes('inside') ||
@@ -75,9 +75,33 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
                 name.includes('latch') || name.includes('lock') ||
                 name.includes('wire') || name.includes('cable') ||
                 name.includes('harness') || name.includes('connector') ||
-                matName.includes('inner') || matName.includes('hidden')) {
+                name.includes('bolt') || name.includes('screw') ||
+                name.includes('nut') || name.includes('washer') ||
+                name.includes('clip') || name.includes('fastener') ||
+                name.includes('panel_inner') || name.includes('liner') ||
+                name.includes('insulation') || name.includes('foam') ||
+                name.includes('rubber_') || name.includes('gasket') ||
+                name.includes('weather') || name.includes('drain') ||
+                name.includes('duct') || name.includes('tube') ||
+                name.includes('hose') || name.includes('coolant') ||
+                name.includes('radiator') || name.includes('fan') ||
+                name.includes('battery') || name.includes('fuse') ||
+                name.includes('relay') || name.includes('sensor') ||
+                name.includes('motor') || name.includes('pump') ||
+                name.includes('reservoir') || name.includes('fluid') ||
+                matName.includes('inner') || matName.includes('hidden') ||
+                matName.includes('black_plastic') || matName.includes('underbody')) {
               toRemove.push(child)
               return
+            }
+            
+            // Skip very small geometry (likely details not visible on mobile)
+            if (child.geometry && child.geometry.boundingSphere) {
+              child.geometry.computeBoundingSphere()
+              if (child.geometry.boundingSphere.radius < 0.02) {
+                toRemove.push(child)
+                return
+              }
             }
           }
           
@@ -91,10 +115,10 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
             const mat = child.material
             mat.needsUpdate = true
             
-            // Mobile: Slightly enhanced material settings for sharper look
-            const envIntensityBoost = isMobile ? 0.5 : 0
+            // Mobile: Enhanced material settings for premium, sharp exterior
+            const envIntensityBoost = isMobile ? 1.0 : 0
             
-            // Body panels - realistic automotive paint
+            // Body panels - realistic automotive paint with clearcoat effect
             if (matName.includes('body') || matName.includes('paint') ||
                 matName.includes('car') || matName.includes('metal') ||
                 name.includes('body') || name.includes('door') ||
@@ -102,9 +126,9 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
                 name.includes('fender') || name.includes('bumper') ||
                 name.includes('roof') || name.includes('pillar')) {
               mat.color = new THREE.Color('#1a1a1a')
-              mat.metalness = isMobile ? 0.5 : 0.4
-              mat.roughness = isMobile ? 0.3 : 0.35
-              mat.envMapIntensity = 3.5 + envIntensityBoost
+              mat.metalness = isMobile ? 0.55 : 0.4
+              mat.roughness = isMobile ? 0.25 : 0.35
+              mat.envMapIntensity = isMobile ? 4.5 : 3.5
               mat.reflectivity = 1.0
             }
             // Windows - realistic automotive glass
@@ -115,60 +139,60 @@ function CarModel({ onLoaded, scrollProgress, isMobile }) {
               mat.metalness = 0.0
               mat.roughness = 0.0
               mat.transparent = true
-              mat.opacity = isMobile ? 0.35 : 0.4
-              mat.envMapIntensity = 4.0 + envIntensityBoost
+              mat.opacity = isMobile ? 0.3 : 0.4
+              mat.envMapIntensity = isMobile ? 5.0 : 4.0
               mat.side = THREE.DoubleSide
             }
             // Wheels - rubber tires
             else if (matName.includes('tire') || matName.includes('tyre') ||
                      name.includes('tire') || name.includes('tyre')) {
-              mat.color = new THREE.Color('#1a1a1a')
+              mat.color = new THREE.Color('#0f0f0f')
               mat.metalness = 0.0
-              mat.roughness = 0.9
-              mat.envMapIntensity = 0.5
+              mat.roughness = isMobile ? 0.85 : 0.9
+              mat.envMapIntensity = isMobile ? 0.8 : 0.5
             }
             // Rims - polished alloy
             else if (matName.includes('wheel') || matName.includes('rim') ||
                      name.includes('wheel') || name.includes('rim') ||
                      name.includes('alloy')) {
-              mat.color = new THREE.Color('#c8c8c8')
-              mat.metalness = isMobile ? 1.0 : 0.95
-              mat.roughness = isMobile ? 0.08 : 0.1
-              mat.envMapIntensity = 4.0 + envIntensityBoost
+              mat.color = new THREE.Color('#d0d0d0')
+              mat.metalness = 1.0
+              mat.roughness = isMobile ? 0.05 : 0.1
+              mat.envMapIntensity = isMobile ? 5.0 : 4.0
             }
             // Headlights/taillights - polished reflector
             else if (matName.includes('light') || matName.includes('lamp') ||
                      name.includes('headlight') || name.includes('taillight') ||
                      name.includes('fog')) {
-              mat.metalness = 0.9
-              mat.roughness = 0.05
-              mat.envMapIntensity = 5.0 + envIntensityBoost
+              mat.metalness = isMobile ? 0.95 : 0.9
+              mat.roughness = isMobile ? 0.02 : 0.05
+              mat.envMapIntensity = isMobile ? 6.0 : 5.0
             }
             // Chrome parts - mirror finish
             else if (matName.includes('chrome') || name.includes('chrome') ||
                      name.includes('mirror') || name.includes('handle')) {
-              mat.color = new THREE.Color('#e8e8e8')
+              mat.color = new THREE.Color('#f0f0f0')
               mat.metalness = 1.0
-              mat.roughness = isMobile ? 0.01 : 0.02
-              mat.envMapIntensity = 5.0 + envIntensityBoost
+              mat.roughness = isMobile ? 0.005 : 0.02
+              mat.envMapIntensity = isMobile ? 6.0 : 5.0
             }
             // Grille/trim - dark chrome
             else if (matName.includes('grille') || matName.includes('grill') ||
                      matName.includes('trim') || name.includes('grille') ||
                      name.includes('badge') || name.includes('emblem')) {
-              mat.color = new THREE.Color('#2a2a2a')
-              mat.metalness = isMobile ? 0.9 : 0.85
-              mat.roughness = isMobile ? 0.12 : 0.15
-              mat.envMapIntensity = 4.0 + envIntensityBoost
+              mat.color = new THREE.Color('#252525')
+              mat.metalness = isMobile ? 0.95 : 0.85
+              mat.roughness = isMobile ? 0.08 : 0.15
+              mat.envMapIntensity = isMobile ? 5.0 : 4.0
             }
             // Plastic parts - matte black
             else if (matName.includes('plastic') || matName.includes('rubber') ||
                      name.includes('wiper') || name.includes('seal') ||
                      name.includes('molding')) {
-              mat.color = new THREE.Color('#1f1f1f')
-              mat.metalness = 0.0
-              mat.roughness = 0.7
-              mat.envMapIntensity = 1.0
+              mat.color = new THREE.Color('#151515')
+              mat.metalness = isMobile ? 0.05 : 0.0
+              mat.roughness = isMobile ? 0.6 : 0.7
+              mat.envMapIntensity = isMobile ? 1.5 : 1.0
             }
           }
         }
@@ -372,16 +396,15 @@ export default function CarScene({ onAnimationComplete, scrollProgress }) {
 
         <Suspense fallback={null}>
           <CarModel onLoaded={() => setIsLoaded(true)} scrollProgress={scrollRef} isMobile={isMobile} />
-          {!isMobile && (
-            <ContactShadows
-              position={[0, -0.5, 0]}
-              opacity={0.45}
-              scale={14}
-              blur={2}
-              far={5}
-              color="#000000"
-            />
-          )}
+          <ContactShadows
+            position={[0, -0.5, 0]}
+            opacity={isMobile ? 0.35 : 0.45}
+            scale={isMobile ? 10 : 14}
+            blur={isMobile ? 1.5 : 2}
+            far={isMobile ? 3 : 5}
+            color="#000000"
+            resolution={isMobile ? 256 : 512}
+          />
           <Environment preset="sunset" background={false} />
         </Suspense>
       </Canvas>
